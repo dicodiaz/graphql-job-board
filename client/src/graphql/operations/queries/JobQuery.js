@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from '@apollo/client';
 
 export const JobQuery = gql`
   query JobQuery($jobId: ID!) {

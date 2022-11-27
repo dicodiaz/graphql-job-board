@@ -9,7 +9,12 @@ const CompanyDetail = () => {
   const { companyId } = useParams();
 
   useEffect(() => {
-    getCompany(companyId).then(setCompany).catch(setError);
+    getCompany(companyId)
+      .then(setCompany)
+      .catch((err) => {
+        console.error(err);
+        setError(err);
+      });
   }, [companyId]);
 
   if (error) return <p>Sorry, something went wrong</p>;

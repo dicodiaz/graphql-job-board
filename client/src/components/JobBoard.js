@@ -7,7 +7,12 @@ const JobBoard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getJobs().then(setJobs).catch(setError);
+    getJobs()
+      .then(setJobs)
+      .catch((err) => {
+        console.error(err);
+        setError(err);
+      });
   }, []);
 
   if (error) return <p>Sorry, something went wrong</p>;

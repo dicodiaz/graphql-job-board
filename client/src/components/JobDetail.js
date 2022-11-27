@@ -9,7 +9,12 @@ const JobDetail = () => {
   const { jobId } = useParams();
 
   useEffect(() => {
-    getJob(jobId).then(setJob).catch(setError);
+    getJob(jobId)
+      .then(setJob)
+      .catch((err) => {
+        console.error(err);
+        setError(err);
+      });
   }, [jobId]);
 
   if (error) return <p>Sorry, something went wrong</p>;
