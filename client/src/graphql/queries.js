@@ -9,6 +9,10 @@ export const getCompany = async (companyId) => {
         id
         name
         description
+        jobs {
+          id
+          title
+        }
       }
     }
   `;

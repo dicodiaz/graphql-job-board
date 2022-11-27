@@ -1,26 +1,26 @@
 import { Link } from 'react-router-dom';
 
-function JobItem({ job }) {
-  const title = job.company ? `${job.title} at ${job.company.name}` : job.title;
+const JobItem = ({ job }) => {
+  const { id, company, title } = job;
+
   return (
     <li className="media">
       <div className="media-content">
-        <Link to={`/jobs/${job.id}`}>
+        <Link to={`/jobs/${id}`}>
           {title}
+          {company ? ` at ${company.name}` : ''}
         </Link>
       </div>
     </li>
   );
-}
+};
 
-function JobList({ jobs }) {
-  return (
-    <ul className="box">
-      {jobs.map((job) => (
-        <JobItem key={job.id} job={job} />
-      ))}
-    </ul>
-  );
-}
+const JobList = ({ jobs }) => (
+  <ul className="box">
+    {jobs.map((job) => (
+      <JobItem key={job.id} job={job} />
+    ))}
+  </ul>
+);
 
 export default JobList;
