@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { request } from 'graphql-request';
 import { getAccessToken } from '../auth';
 import { CompanyQuery, CreateJobMutation, JobQuery, JobsQuery } from './operations';
 
@@ -12,11 +11,11 @@ const client = new ApolloClient({
 
 export const createJob = async (createJobInput) => {
   const variables = { createJobInput };
-  const requestHeaders = {
-    Authorization: `Bearer ${getAccessToken()}`,
+  const context = {
+    headers: { Authorization: `Bearer ${getAccessToken()}` },
   };
-  const { job } = await request(GRAPHQL_URL, CreateJobMutation, variables, requestHeaders);
-  return job;
+  const { data } = await client.mutate({ mutation: CreateJobMutation, variables, context });
+  return data.job;
 };
 
 export const getCompany = async (companyId) => {
