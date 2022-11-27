@@ -21,19 +21,17 @@ export const createJob = async (createJobInput) => {
 
 export const getCompany = async (companyId) => {
   const variables = { companyId };
-  const { company } = await request(GRAPHQL_URL, CompanyQuery, variables);
-  return company;
+  const { data } = await client.query({ query: CompanyQuery, variables });
+  return data.company;
 };
 
 export const getJob = async (jobId) => {
   const variables = { jobId };
-  const { job } = await request(GRAPHQL_URL, JobQuery, variables);
-  return job;
+  const { data } = await client.query({ query: JobQuery, variables });
+  return data.job;
 };
 
 export const getJobs = async () => {
-  const {
-    data: { jobs },
-  } = await client.query({ query: JobsQuery });
-  return jobs;
+  const { data } = await client.query({ query: JobsQuery });
+  return data.jobs;
 };
