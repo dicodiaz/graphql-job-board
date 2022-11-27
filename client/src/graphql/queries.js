@@ -1,8 +1,14 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { request } from 'graphql-request';
 import { getAccessToken } from '../auth';
 import { CompanyQuery, CreateJobMutation, JobQuery, JobsQuery } from './operations';
 
 const GRAPHQL_URL = 'http://localhost:9000/graphql';
+
+const client = new ApolloClient({
+  uri: GRAPHQL_URL,
+  cache: new InMemoryCache(),
+});
 
 export const createJob = async (createJobInput) => {
   const variables = { createJobInput };
@@ -26,6 +32,8 @@ export const getJob = async (jobId) => {
 };
 
 export const getJobs = async () => {
-  const { jobs } = await request(GRAPHQL_URL, JobsQuery);
+  const {
+    data: { jobs },
+  } = await client.query({ query: JobsQuery });
   return jobs;
 };
