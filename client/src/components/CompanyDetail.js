@@ -5,11 +5,14 @@ import JobList from './JobList';
 
 const CompanyDetail = () => {
   const [company, setCompany] = useState(null);
+  const [error, setError] = useState(null);
   const { companyId } = useParams();
 
   useEffect(() => {
-    getCompany(companyId).then(setCompany);
+    getCompany(companyId).then(setCompany).catch(setError);
   }, [companyId]);
+
+  if (error) return <p>Sorry, something went wrong</p>;
 
   if (!company) return <p>Loading...</p>;
 

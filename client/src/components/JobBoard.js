@@ -4,10 +4,13 @@ import JobList from './JobList';
 
 const JobBoard = () => {
   const [jobs, setJobs] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getJobs().then(setJobs);
+    getJobs().then(setJobs).catch(setError);
   }, []);
+
+  if (error) return <p>Sorry, something went wrong</p>;
 
   return (
     <div>
