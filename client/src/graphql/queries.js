@@ -1,57 +1,21 @@
-import { gql, request } from 'graphql-request';
+import { request } from 'graphql-request';
+import { CompanyQuery, JobQuery, JobsQuery } from './gqlQueries';
 
 const GRAPHQL_URL = 'http://localhost:9000/graphql';
 
 export const getCompany = async (companyId) => {
-  const query = gql`
-    query CompanyQuery($companyId: ID!) {
-      company(companyId: $companyId) {
-        id
-        name
-        description
-        jobs {
-          id
-          title
-        }
-      }
-    }
-  `;
   const variables = { companyId };
-  const { company } = await request(GRAPHQL_URL, query, variables);
+  const { company } = await request(GRAPHQL_URL, CompanyQuery, variables);
   return company;
 };
 
 export const getJob = async (jobId) => {
-  const query = gql`
-    query JobQuery($jobId: ID!) {
-      job(jobId: $jobId) {
-        id
-        title
-        description
-        company {
-          id
-          name
-        }
-      }
-    }
-  `;
   const variables = { jobId };
-  const { job } = await request(GRAPHQL_URL, query, variables);
+  const { job } = await request(GRAPHQL_URL, JobQuery, variables);
   return job;
 };
 
 export const getJobs = async () => {
-  const query = gql`
-    query JobsQuery {
-      jobs {
-        id
-        title
-        company {
-          name
-        }
-      }
-    }
-  `;
-  const { jobs } = await request(GRAPHQL_URL, query);
+  const { jobs } = await request(GRAPHQL_URL, JobsQuery);
   return jobs;
 };

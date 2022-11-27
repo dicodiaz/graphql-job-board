@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const JobItem = ({ job }) => {
-  const { id, company, title } = job;
+  const { id, title, company } = job;
 
   return (
     <li className="media">
