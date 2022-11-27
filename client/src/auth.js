@@ -5,11 +5,11 @@
 const ACCESS_TOKEN_KEY = 'accessToken';
 const API_URL = 'http://localhost:9000';
 
-export function getAccessToken() {
+export const getAccessToken = () => {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
+};
 
-export async function login(email, password) {
+export const login = async (email, password) => {
   const response = await fetch(`${API_URL}/login`, {
     method: 'POST',
     headers: {
@@ -22,12 +22,12 @@ export async function login(email, password) {
     localStorage.setItem(ACCESS_TOKEN_KEY, token);
   }
   return response.ok;
-}
+};
 
-export function isLoggedIn() {
+export const isLoggedIn = () => {
   return Boolean(localStorage.getItem(ACCESS_TOKEN_KEY));
-}
+};
 
-export function logout() {
+export const logout = () => {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
-}
+};

@@ -8,7 +8,12 @@ export const resolvers = {
   },
 
   Mutation: {
-    createJob: (_root, { createJobInput }) => Job.create(createJobInput),
+    createJob: (_root, { createJobInput }, auth) => {
+      if (!auth) {
+        throw new Error('Unathorized');
+      }
+      return Job.create(createJobInput);
+    },
     deleteJob: (_root, { jobId }) => Job.delete(jobId),
     updateJob: (_root, { updateJobInput }) => Job.update(updateJobInput),
   },
