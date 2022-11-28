@@ -1,7 +1,9 @@
 import { Company, Job } from './db.js';
 
 const rejectIf = (condition) => {
-  if (condition) throw new Error('Unauthorized');
+  if (condition) {
+    throw new Error('Unauthorized');
+  }
 };
 
 export const resolvers = {
