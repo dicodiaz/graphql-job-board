@@ -6,6 +6,7 @@ export const JobsQuery = gql`
       id
       title
       company {
+        id
         name
       }
     }
