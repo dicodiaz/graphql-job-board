@@ -14,7 +14,18 @@ export const createJob = async (createJobInput) => {
   const context = {
     headers: { Authorization: `Bearer ${getAccessToken()}` },
   };
-  const { data } = await client.mutate({ mutation: CreateJobMutation, variables, context });
+  const { data } = await client.mutate({
+    mutation: CreateJobMutation,
+    variables,
+    context,
+    update: (cache, { data: { job } }) => {
+      cache.writeQuery({
+        query: JobQuery,
+        variables: { jobId: job.id },
+        data: { job },
+      });
+    },
+  });
   return data.job;
 };
 
