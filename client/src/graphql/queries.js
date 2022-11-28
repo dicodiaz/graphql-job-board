@@ -31,6 +31,6 @@ export const getJob = async (jobId) => {
 };
 
 export const getJobs = async () => {
-  const { data } = await client.query({ query: JobsQuery });
+  const { data } = await client.query({ query: JobsQuery, fetchPolicy: 'network-only' });
   return data.jobs;
 };
