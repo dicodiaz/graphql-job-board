@@ -1,15 +1,12 @@
 import { gql } from '@apollo/client';
+import { JobDetailFragment } from '../fragments/JobDetail';
 
 export const JobQuery = gql`
   query JobQuery($jobId: ID!) {
     job(jobId: $jobId) {
-      id
-      title
-      description
-      company {
-        id
-        name
-      }
+      ...JobDetail
     }
   }
+
+  ${JobDetailFragment}
 `;
