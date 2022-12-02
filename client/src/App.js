@@ -9,7 +9,7 @@ import JobDetail from './components/JobDetail';
 import JobForm from './components/JobForm';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
-import { client } from './graphql/queries';
+import { client } from './graphql/config';
 
 function App() {
   const navigate = useNavigate();
