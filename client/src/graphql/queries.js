@@ -1,6 +1,4 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { getAccessToken } from '../auth';
-import { CreateJobMutation, JobQuery } from './operations';
 
 const GRAPHQL_URL = 'http://localhost:9000/graphql';
 
@@ -8,23 +6,3 @@ export const client = new ApolloClient({
   uri: GRAPHQL_URL,
   cache: new InMemoryCache(),
 });
-
-export const createJob = async (createJobInput) => {
-  const variables = { createJobInput };
-  const context = {
-    headers: { Authorization: `Bearer ${getAccessToken()}` },
-  };
-  const { data } = await client.mutate({
-    mutation: CreateJobMutation,
-    variables,
-    context,
-    update: (cache, { data: { job } }) => {
-      cache.writeQuery({
-        query: JobQuery,
-        variables: { jobId: job.id },
-        data: { job },
-      });
-    },
-  });
-  return data.job;
-};
