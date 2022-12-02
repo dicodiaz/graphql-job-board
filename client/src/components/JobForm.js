@@ -8,7 +8,7 @@ const JobForm = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [mutate] = useMutation(CreateJobMutation);
+  const [mutate, { loading, error }] = useMutation(CreateJobMutation);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,6 +16,7 @@ const JobForm = () => {
       data: {
         job: { id },
       },
+      error,
     } = await mutate({
       variables: { createJobInput: { title, description } },
       context: {
@@ -29,8 +30,14 @@ const JobForm = () => {
         });
       },
     });
-    navigate(`/jobs/${id}`);
+    if (!error) {
+      navigate(`/jobs/${id}`);
+    }
   };
+
+  if (error) {
+    return <p>Sorry, something went wrong</p>;
+  }
 
   return (
     <div>
@@ -61,7 +68,7 @@ const JobForm = () => {
           </div>
           <div className="field">
             <div className="control">
-              <button className="button is-link" onClick={handleSubmit}>
+              <button className="button is-link" onClick={handleSubmit} disabled={loading}>
                 Submit
               </button>
             </div>
