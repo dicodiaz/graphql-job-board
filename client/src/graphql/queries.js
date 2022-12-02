@@ -34,9 +34,3 @@ export const getCompany = async (companyId) => {
   const { data } = await client.query({ query: CompanyQuery, variables });
   return data.company;
 };
-
-export const getJob = async (jobId) => {
-  const variables = { jobId };
-  const { data } = await client.query({ query: JobQuery, variables });
-  return data.job;
-};
