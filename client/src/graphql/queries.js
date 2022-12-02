@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { getAccessToken } from '../auth';
-import { CompanyQuery, CreateJobMutation, JobQuery } from './operations';
+import { CreateJobMutation, JobQuery } from './operations';
 
 const GRAPHQL_URL = 'http://localhost:9000/graphql';
 
@@ -27,10 +27,4 @@ export const createJob = async (createJobInput) => {
     },
   });
   return data.job;
-};
-
-export const getCompany = async (companyId) => {
-  const variables = { companyId };
-  const { data } = await client.query({ query: CompanyQuery, variables });
-  return data.company;
 };
